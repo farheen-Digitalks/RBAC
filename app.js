@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import { connectDB } from "./config/connecDb.js";
+import { connectDB } from "./config/connection.js";
 
 const app = express();
 connectDB();
@@ -13,7 +13,7 @@ app.use(
 );
 app.use(express.json());
 
-import allRoutes from "./routes/index.js";
+import allRoutes from "./routes/routes.js";
 app.use("/api", allRoutes);
 
 app.get("/", (req, res) => {
