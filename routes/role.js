@@ -1,5 +1,4 @@
 import express from "express";
-import role from "../models/role.js";
 import {
   createRoleHandler,
   deleteRoleHandler,

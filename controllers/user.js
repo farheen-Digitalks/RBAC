@@ -1,4 +1,3 @@
-import User from "../models/platformUser.js";
 import bcrypt from "bcryptjs";
 import {
   createUser,
@@ -18,7 +17,7 @@ export const createUserHandler = async (req, res) => {
       return res.status(400).json({ message: "All fields are required" });
     }
 
-    const exist = await User.findOne({ email });
+    const exist = await getUserByEmail(email);
     if (exist) {
       return res.status(409).json({ message: "User exists with this email" });
     }
