@@ -7,11 +7,13 @@ import {
   getRolesHandler,
   updateRoleHandler,
 } from "../controllers/role.js";
+import { paginationMiddleware } from "../middleware/pagination.js";
+import Role from "../models/role.js";
 const router = express.Router();
 
 router.get(
   "/",
-  paginationMiddleware(role, { populate: "permissions" }),
+  paginationMiddleware(Role, { populate: "permissions" }),
   getRolesHandler,
 );
 router.post("/", createRoleHandler);

@@ -6,9 +6,11 @@ import {
   getPermissionsHandler,
   updatePermissionHandler,
 } from "../controllers/permission.js";
+import { paginationMiddleware } from "../middleware/pagination.js";
+import Permission from "../models/permission.js";
 const router = express.Router();
 
-router.post("/", paginationMiddleware(permission), createPermissionHandler);
+router.post("/", paginationMiddleware(Permission), createPermissionHandler);
 router.get("/", getPermissionsHandler);
 router.get("/:id", getPermissionByIdHandler);
 router.put("/:id", updatePermissionHandler);
