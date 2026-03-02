@@ -2,7 +2,6 @@ import {
   createRole,
   deleteRole,
   getRoleById,
-  getRoles,
   updateRole,
 } from "../services/role.js";
 
@@ -29,9 +28,7 @@ export const createRoleHandler = async (req, res) => {
 
 export const getRolesHandler = async (req, res) => {
   try {
-    // const companyId = req.user.companyId;
-    // console.log("company id", req.user.companyId);
-    // const roles = await getRoles(companyId);
+    // const roles = await getRoles();
     return res.status(200).json(req.paginatedResult);
   } catch (error) {
     return res.status(500).json({ message: error.message });
@@ -40,9 +37,8 @@ export const getRolesHandler = async (req, res) => {
 
 export const getRoleByIdHandler = async (req, res) => {
   try {
-    const companyId = req.user.companyId;
     const id = req.params.id;
-    const role = await getRoleById(id, companyId);
+    const role = await getRoleById(id);
     return res.status(200).json(role);
   } catch (error) {
     return res.status(500).json({ message: "Role not found" });
@@ -52,8 +48,7 @@ export const getRoleByIdHandler = async (req, res) => {
 export const updateRoleHandler = async (req, res) => {
   try {
     const id = req.params.id;
-    const companyId = req.user.companyId;
-    const role = await updateRole(id, companyId, req.body);
+    const role = await updateRole(id, req.body);
     if (role) {
       return res
         .status(200)
@@ -69,8 +64,7 @@ export const updateRoleHandler = async (req, res) => {
 export const deleteRoleHandler = async (req, res) => {
   try {
     const id = req.params.id;
-    const companyId = req.user.companyId;
-    const role = await deleteRole(id, companyId);
+    const role = await deleteRole(id);
     if (role) {
       return res.status(200).json({ message: "Role deleted successfully" });
     } else {

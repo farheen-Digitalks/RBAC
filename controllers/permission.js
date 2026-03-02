@@ -8,11 +8,7 @@ import {
 
 export const createPermissionHandler = async (req, res) => {
   try {
-    const companyId = req.user.companyId;
-    const permission = await createPermission({
-      ...req.body,
-      companyId,
-    });
+    const permission = await createPermission(req.body);
     return res.status(201).json({
       message: "Permission created successfully",
       permission,
@@ -27,8 +23,7 @@ export const createPermissionHandler = async (req, res) => {
 
 export const getPermissionsHandler = async (req, res) => {
   try {
-    const companyId = req.user.companyId;
-    const permissions = await getPermission(companyId);
+    const permissions = await getPermission();
     return res.status(200).json(permissions);
   } catch (error) {
     return res.status(500).json({ message: error.message });
@@ -38,8 +33,7 @@ export const getPermissionsHandler = async (req, res) => {
 export const getPermissionByIdHandler = async (req, res) => {
   try {
     const id = req.params.id;
-    const companyId = req.user.companyId;
-    const permission = await getPermissionById(id, companyId);
+    const permission = await getPermissionById(id);
     return res.status(200).json(permission);
   } catch (error) {
     return res.status(500).json({ message: "Permission not found" });
@@ -49,8 +43,7 @@ export const getPermissionByIdHandler = async (req, res) => {
 export const updatePermissionHandler = async (req, res) => {
   try {
     const id = req.params.id;
-    const companyId = req.user.companyId;
-    const permission = await updatePermission(id, companyId, req.body);
+    const permission = await updatePermission(id, req.body);
     if (permission) {
       return res
         .status(200)
@@ -66,8 +59,7 @@ export const updatePermissionHandler = async (req, res) => {
 export const deletePermissionHandler = async (req, res) => {
   try {
     const id = req.params.id;
-    const companyId = req.user.companyId;
-    const permission = await deletePermission(id, companyId);
+    const permission = await deletePermission(id);
     if (permission) {
       return res
         .status(200)

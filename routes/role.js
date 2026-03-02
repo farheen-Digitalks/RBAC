@@ -1,4 +1,5 @@
 import express from "express";
+import role from "../models/role.js";
 import {
   createRoleHandler,
   deleteRoleHandler,
@@ -6,11 +7,7 @@ import {
   getRolesHandler,
   updateRoleHandler,
 } from "../controllers/role.js";
-import { authenticate } from "../middlewares/auth.js";
-import { paginationMiddleware } from "../middlewares/pagination.js";
-import role from "../models/role.js";
 const router = express.Router();
-router.use(authenticate);
 
 router.get(
   "/",
