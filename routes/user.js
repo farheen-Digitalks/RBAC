@@ -1,4 +1,12 @@
 import express from "express";
+import {
+  createUserHandler,
+  deleteUserHandler,
+  getUserByIdHandler,
+  getUsersHandler,
+  loginUserHandler,
+  updateUserHandler,
+} from "../controllers/user.js";
 const router = express.Router();
 
 router.get("/", getUsersHandler);
