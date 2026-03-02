@@ -12,30 +12,29 @@ export const createUser = async (data) => {
     email: email,
     password: hashedPass,
     role: role,
-    companyId: data.companyId,
   });
 
   return user;
 };
 
-export const getUsers = async (id) => {
-  return await User.find({ companyId: id });
+export const getUsers = async () => {
+  return await User.find();
 };
 
-export const getUserByEmail = async (email, companyId) => {
-  return await User.findOne({ email, companyId });
+export const getUserByEmail = async (email) => {
+  return await User.findOne({ email });
 };
 
-export const getUser = async (id, companyId) => {
-  return await User.findOne({ _id: id, companyId });
+export const getUser = async (id) => {
+  return await User.findOne(id);
 };
 
-export const updateUser = async (id, data, companyId) => {
-  return await User.findByIdAndUpdate({ _id: id, companyId }, data, {
+export const updateUser = async (id, data) => {
+  return await User.findByIdAndUpdate(id, data, {
     new: true,
   });
 };
 
-export const deleteUser = async (id, companyId) => {
-  return await User.findOneAndDelete({ _id: id, companyId });
+export const deleteUser = async (id) => {
+  return await User.findOneAndDelete(id);
 };

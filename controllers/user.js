@@ -28,7 +28,6 @@ export const createUserHandler = async (req, res) => {
       email,
       password,
       role,
-      companyId: req.user.companyId, // 🔥 FROM JWT
     });
 
     return res.status(201).json({
@@ -45,8 +44,7 @@ export const createUserHandler = async (req, res) => {
 
 export const getUsersHandler = async (req, res) => {
   try {
-    const companyId = req.user.companyId;
-    const users = await getUsers(companyId);
+    const users = await getUsers();
     return res.status(200).json(users);
   } catch (error) {
     return res.status(500).json({ message: error.message });
@@ -55,9 +53,8 @@ export const getUsersHandler = async (req, res) => {
 
 export const getUserByIdHandler = async (req, res) => {
   try {
-    const companyId = req.user.companyId;
     const id = req.params.id;
-    const user = await getUser(id, companyId);
+    const user = await getUser(id);
     return res.status(200).json(user);
   } catch (error) {
     return res.status(500).json({ message: "User not found" });
@@ -67,8 +64,7 @@ export const getUserByIdHandler = async (req, res) => {
 export const updateUserHandler = async (req, res) => {
   try {
     const id = req.params.id;
-    const companyId = req.user.companyId;
-    const user = await updateUser(id, req.body, companyId, req.body);
+    const user = await updateUser(id, req.body);
     if (user) {
       return res
         .status(200)
@@ -84,8 +80,7 @@ export const updateUserHandler = async (req, res) => {
 export const deleteUserHandler = async (req, res) => {
   try {
     const id = req.params.id;
-    const companyId = req.user.companyId;
-    const user = await deleteUser(id, companyId);
+    const user = await deleteUser(id);
     if (user) {
       return res.status(200).json({ message: "User deleted successfully" });
     } else {
